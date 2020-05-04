@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "1f563aef-12a0-4591-9a3b-6ce81028f1e8",
+		"name": "reqres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24e2734b-2ac7-4c6c-a1a9-a14dbbd44bcf",
+						"exec": [
+							"let urlVar = pm.response.json(pm.variables.get(\"avatar\"));",
+							"",
+							"",
+							"",
+							"console.log(\"urlVar:\" + urlVar)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35559c60-a48d-4666-b2cf-99038d4af412",
+						"exec": [
+							"/*pm.test(\"Body matches string\", function () {",
+							"    ",
+							"    pm.expect(pm.response.text()).to.include(\"first_name\");",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    ",
+							"    pm.response.to.have.body('{",
+							"    \"data\": {",
+							"        \"id\": 2,",
+							"        \"email\": \"janet.weaver@reqres.in\",",
+							"        \"first_name\": \"Janet\",",
+							"        \"last_name\": \"Weaver\",",
+							"        \"avatar\": \"https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg\"",
+							"    },",
+							"    \"ad\": {",
+							"        \"company\": \"StatusCode Weekly\",",
+							"        \"url\": \"http://statuscode.org/\",",
+							"        \"text\": \"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things.\"",
+							"    }",
+							"}');",
+							"});*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?first_name=tulasi",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "first_name",
+							"value": "tulasi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"id\": 2,\r\n        \"email\": \"tulasi@reqres.in\",\r\n        \"first_name\": \"tulasi\",\r\n        \"last_name\": \"rao\",\r\n        \"avatar\": \"https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg\"\r\n    },\r\n    \"ad\": {\r\n        \"company\": \"StatusCode Weekly\",\r\n        \"url\": \"http://statuscode.org/\",\r\n        \"text\": \"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things.\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

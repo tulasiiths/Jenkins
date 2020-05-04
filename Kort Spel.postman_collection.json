@@ -1,0 +1,928 @@
+{
+	"info": {
+		"_postman_id": "3eb7b746-ae7b-4b6c-aae8-bbc373771b74",
+		"name": "Kort Spel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BlackJack21 Task",
+			"item": [
+				{
+					"name": "Shuffel a new deck and give me 2 cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0615ea8b-4185-4eef-9b45-eadba2c1e8d8",
+								"exec": [
+									"let drawCards = pm.response.json();",
+									"",
+									"pm.globals.set(\"deck_id\", drawCards.deck_id);",
+									"",
+									"var valueTotal = 0;",
+									"//let index = 0;",
+									"var cardValue = 0;",
+									"let index = 0;",
+									"for (index = 0; index < 2; index ++){",
+									"console.log(drawCards.cards[index].value);",
+									"    if((drawCards.cards[index].value==(\"KING\" ))|| (drawCards.cards[index].value==(\"QUEEN\" ))||(drawCards.cards[index].value==(\"JACK\"))){",
+									"                cardValue =  10;",
+									"            }",
+									"     else {",
+									"          cardValue =  parseInt((drawCards.cards[index].value));",
+									"             }",
+									"     if (drawCards.cards[index].value == (\"ACE\") ){",
+									"          if(valueTotal > 10){",
+									"         cardValue = 1; ",
+									"      }",
+									"      else   ",
+									"      {",
+									"        cardValue =11; ",
+									"      }",
+									"      console.log(parseInt(drawCards.cards[index].value).cardValue);",
+									"     }",
+									"     ",
+									"   valueTotal  = (valueTotal + cardValue);",
+									"    console.log(\" valueTotal :\" + (valueTotal));",
+									"    pm.globals.set(\"valueTotal\", valueTotal);",
+									"    if(valueTotal === 21){",
+									"        console.log(\"Hurray 21 !!\");",
+									"    }",
+									"    if(valueTotal > 21){",
+									"        console.log(\"Sorry you loose  !!\");",
+									"    }",
+									"    ",
+									"  }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/draw/?count=2",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "give me a card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "937630ef-1c4c-428d-9cd6-dead02a4e040",
+								"exec": [
+									"let drawCards = pm.response.json();",
+									"",
+									"var valueTotal = globals.valueTotal;",
+									"//let index = 0;",
+									"",
+									"console.log(\"drawCards.cards[0].value:\" + drawCards.cards[0].value);",
+									"    if((drawCards.cards[0].value==(\"KING\" ))|| (drawCards.cards[0].value==(\"QUEEN\" ))||(drawCards.cards[0].value==(\"JACK\"))){",
+									"                cardValue =  10;",
+									"            }",
+									"     else {",
+									"          cardValue =  parseInt((drawCards.cards[0].value));",
+									"             }",
+									"     if (drawCards.cards[0].value == (\"ACE\") ){",
+									"          if(valueTotal > 10){",
+									"         cardValue = 1; ",
+									"      }",
+									"      else   ",
+									"      {",
+									"        cardValue =11; ",
+									"      }",
+									"      console.log(parseInt(drawCards.cards[0].value).cardValue);",
+									"     }",
+									"     ",
+									"    valueTotal  = (valueTotal + cardValue);",
+									"    console.log(\" valueTotal :\" + (valueTotal));",
+									"    pm.globals.set(\"valueTotal\", valueTotal);",
+									"    if(valueTotal === 21){",
+									"        console.log(\"Hurray 21 !!\");",
+									"    }",
+									"    if(valueTotal > 21){",
+									"        console.log(\"Sorry you loose  !!\");",
+									"    }",
+									"    ",
+									"    ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "db1db41d-c334-4709-9318-1da75f792249",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/deck/{{deck_id}}/draw/?count=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"deck",
+								"{{deck_id}}",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tulasi",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/members/Tulasi?key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"members",
+								"Tulasi"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TulasiFirstBoard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7ec97b2e-a322-464b-a723-2d0a31c81ad5",
+								"exec": [
+									"pm.globals.set(\"BoardID\", \"5e7f80cd378d2403cabfcab0\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/members/Tulasi?key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"members",
+								"Tulasi"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TulasiBoard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7ec97b2e-a322-464b-a723-2d0a31c81ad5",
+								"exec": [
+									"pm.globals.set(\"BoardID\", \"5e7f80cd378d2403cabfcab0\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/boards/{{BoardID}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"boards",
+								"{{BoardID}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/boards/?name=DeckCard - BlackJack21&defaultLabels=true&defaultLists=false&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "DeckCard - BlackJack21"
+								},
+								{
+									"key": "defaultLabels",
+									"value": "true"
+								},
+								{
+									"key": "defaultLists",
+									"value": "false"
+								},
+								{
+									"key": "keepFromSource",
+									"value": "none"
+								},
+								{
+									"key": "prefs_permissionLevel",
+									"value": "private"
+								},
+								{
+									"key": "prefs_voting",
+									"value": "disabled"
+								},
+								{
+									"key": "prefs_comments",
+									"value": "members"
+								},
+								{
+									"key": "prefs_invitations",
+									"value": "members"
+								},
+								{
+									"key": "prefs_selfJoin",
+									"value": "true"
+								},
+								{
+									"key": "prefs_cardCovers",
+									"value": "true"
+								},
+								{
+									"key": "prefs_background",
+									"value": "blue"
+								},
+								{
+									"key": "prefs_cardAging",
+									"value": "regular"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lists?name=Test cases creation&idBoard={{BOARDID}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Test cases creation"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{BOARDID}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 list updation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lists/{{ToDo}}?key={{key}}&token={{token}}&name=To Do",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lists",
+								"{{ToDo}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "To Do"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 list 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lists?name=Doing&idBoard={{BOARDID}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Doing"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{BOARDID}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 list 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lists?name=Done&idBoard={{BOARDID}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Done"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{BOARDID}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cards?idList={{ToDo}}&keepFromSource=all&key={{key}}&token={{token}}&name=creating the BlackJack21 game",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{ToDo}}"
+								},
+								{
+									"key": "keepFromSource",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "creating the BlackJack21 game"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack21 Card 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cards?idList={{ToDo}}&keepFromSource=all&key={{key}}&token={{token}}&name=creating the BlackJack21 game",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{ToDo}}"
+								},
+								{
+									"key": "keepFromSource",
+									"value": "all"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "name",
+									"value": "creating the BlackJack21 game"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "move BlackJack21 Card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cards/{{card2}}/idList?value={{Doing}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cards",
+								"{{card2}}",
+								"idList"
+							],
+							"query": [
+								{
+									"key": "value",
+									"value": "{{Doing}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "move BlackJack21 Card 2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cards/{{card2}}/idList?value={{Done}}&key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cards",
+								"{{card2}}",
+								"idList"
+							],
+							"query": [
+								{
+									"key": "value",
+									"value": "{{Done}}"
+								},
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get BlackJack21 Card 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card2}}?key={{key}}&token={{token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card2}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete BlackJack21 Card 2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cards/{{card1}}?key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cards",
+								"{{card1}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BlackJack board deletion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/boards/id?key={{key}}&token={{token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"boards",
+								"id"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{key}}"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "KortSpel",
+			"item": [
+				{
+					"name": "Deck cards play",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1595f7-ec23-4efc-bdce-8ee8828ee74c",
+								"exec": [
+									"let cardsDeck = pm.response.json();\rconsole.log(cardsDeck.cards[0].image);\rpm.test(\"Check the success in the cardDeck\", function () {\r  //  pm.expect(cardsDeck.success).to.eql(true);\r      pm.expect(cardsDeck.success).to.be.true;\r\r});\rpm.test(\"Body matches string\", function () {\r    pm.expect(pm.response.text()).to.include(\"https://deckofcardsapi.com/static/img\");\r});\rpm.test(\"Your test name\", function () {\r    \r    pm.expect(cardsDeck.cards[0].suit).to.be.oneOf([\"HEARTS\",\"SPADES\",\"CLUB\",\"DIAMOND\"]);\r});\r"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deck cards play 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1595f7-ec23-4efc-bdce-8ee8828ee74c",
+								"exec": [
+									"//var jsonData = pm.response.json();\r//console.log(jsonData.cards[0].image);\rpm.test(\"Your test name\", function () {\r    var jsonData = pm.response.json();\r    pm.expect(jsonData.success).to.eql(true);\r});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"shuffle",
+								""
+							],
+							"query": [
+								{
+									"key": "deck_count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deck cards play 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1595f7-ec23-4efc-bdce-8ee8828ee74c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "draw new card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1595f7-ec23-4efc-bdce-8ee8828ee74c",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									" let drawCard = pm.response.json();",
+									"pm.test(\"Success\", function () {",
+									"       pm.expect(drawCard.success).to.eql(true);",
+									"});",
+									"pm.globals.set(\"deck_id\", drawCard.deck_id);",
+									"console.log(drawCard.cards[0].image);",
+									"",
+									"pm.globals.set(\"Suit\", drawCard.cards[0].suit);",
+									"pm.globals.set(\"Value\", drawCard.cards[0].value);",
+									"",
+									"pm.test(\"Similar suits\", function () {",
+									"       pm.expect(drawCard.cards[0].Suit).to.eql(globals.deck_id.Suit);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"{{deck_id}}",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

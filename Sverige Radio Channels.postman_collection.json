@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "ad68893a-db07-4c6f-b568-2b4320fe7edb",
+		"name": "Sverige Radio Channels",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "radio programs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118316e7-0e4e-4aa6-b911-6b19aae220d1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Barn 3 - 8 år\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://api.sr.se/api/v2/programcategories/programcategory?id=1&name=Barn 9 - 16 år",
+					"protocol": "http",
+					"host": [
+						"api",
+						"sr",
+						"se"
+					],
+					"path": [
+						"api",
+						"v2",
+						"programcategories",
+						"programcategory"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "name",
+							"value": "Barn 9 - 16 år"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "radio programs 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118316e7-0e4e-4aa6-b911-6b19aae220d1",
+						"exec": [
+							"var CommonTestCases= () =>{",
+							"    pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Barn 3 - 8 år\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('text/xml; charset=utf-8');",
+							"   // pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+							"",
+							"});",
+							"var srChannel = xml2Json(responseBody);",
+							"console.log(srChannel)",
+							"pm.test(\"Your test name\", function () {",
+							"    //var jsonData = pm.response.json();",
+							"pm.expect(srChannel.sr.programcategories.programcategory[2].$.name).to.eql(\"Dokumentär\");",
+							"pm.expect(srChannel.sr.programcategories.programcategory[4].$.id).to.eql(\"135\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    //pm.expect(pm.response.responseTime).to.be.below(10);",
+							"  pm.expect(pm.response.responseTime).to.be.below(50);",
+							"",
+							"});",
+							"}",
+							"//CommonTestCases();",
+							"",
+							"pm.environment.set(\"CommonTestCases\", CommonTestCases.toString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.sr.se/api/v2/programcategories/",
+					"protocol": "http",
+					"host": [
+						"api",
+						"sr",
+						"se"
+					],
+					"path": [
+						"api",
+						"v2",
+						"programcategories",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "radio programs 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118316e7-0e4e-4aa6-b911-6b19aae220d1",
+						"exec": [
+							"var CommonTestCases= () =>{",
+							"    pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Barn 3 - 8 år\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('text/xml; charset=utf-8');",
+							"   // pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+							"",
+							"});",
+							"var srChannel = xml2Json(responseBody);",
+							"console.log(srChannel)",
+							"pm.test(\"Your test name\", function () {",
+							"    //var jsonData = pm.response.json();",
+							"pm.expect(srChannel.sr.programcategories.programcategory[2].$.name).to.eql(\"Dokumentär\");",
+							"pm.expect(srChannel.sr.programcategories.programcategory[4].$.id).to.eql(\"135\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    //pm.expect(pm.response.responseTime).to.be.below(10);",
+							"  pm.expect(pm.response.responseTime).to.be.below(50);",
+							"",
+							"});",
+							"}",
+							"//CommonTestCases();",
+							"",
+							"pm.environment.set(\"CommonTestCases\", CommonTestCases.toString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.sr.se/api/v2/programcategories/",
+					"protocol": "http",
+					"host": [
+						"api",
+						"sr",
+						"se"
+					],
+					"path": [
+						"api",
+						"v2",
+						"programcategories",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "radio programs 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d576f90-8faa-4f06-897b-47d1df9ce6ff",
+						"exec": [
+							"eval(pm.environment.get(\"CommonTestCases\"))();//evaluation function of the environmient code"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a217e7a0-410f-4d63-969b-6de8592b201f",
+						"exec": [
+							"var CommonTestCases= () =>{",
+							"    pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Barn 3 - 8 år\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('text/xml; charset=utf-8');",
+							"   // pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+							"",
+							"});",
+							"var srChannel = xml2Json(responseBody);",
+							"console.log(srChannel);",
+							"pm.test(\"Your test name\", function () {",
+							"    //var jsonData = pm.response.json();",
+							"pm.expect(srChannel.sr.programcategories.programcategory[2].$.name).to.eql(\"Dokumentär\");",
+							"pm.expect(srChannel.sr.programcategories.programcategory[4].$.id).to.eql(\"135\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    //pm.expect(pm.response.responseTime).to.be.below(10);",
+							"  pm.expect(pm.response.responseTime).to.be.below(50);",
+							"",
+							"});",
+							"};",
+							"//CommonTestCases();",
+							"",
+							"pm.environment.set(\"CommonTestCases\", CommonTestCases.toString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.sr.se/api/v2/programcategories/",
+					"protocol": "http",
+					"host": [
+						"api",
+						"sr",
+						"se"
+					],
+					"path": [
+						"api",
+						"v2",
+						"programcategories",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "radio programs 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "118316e7-0e4e-4aa6-b911-6b19aae220d1",
+						"exec": [
+							"eval(pm.environment.get(\"CommonTestCases\"))();",
+							"var schema = {",
+							" \"items\": {",
+							" \"type\": \"boolean\"",
+							" }",
+							"};",
+							"var data1 = [true, false];",
+							"var data2 = [true, 123];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.false;",
+							"});",
+							"pm.test(\"Check if pattern is in target string\",function () {",
+							"      pm.expect('foobar').to.have.string('bar');",
+							"  });",
+							"  pm.test(\"Our JSON is loosely equal to the provided JSON\", function () {",
+							"   pm.expect(data1).to.deep.equal(data2);",
+							"  });",
+							"  const TEN = 10;",
+							"  pm.test('Check if number is equal to 10', function () {",
+							"      pm.expect(TEN).to.equal(10);",
+							"  });",
+							"  //pm.test(\"Check if environment is production\", function () {",
+							"     // pm.expect(pm.environment.get('environment')).to.equal('Sverige radio Channels');",
+							"  //});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "28abf0ac-7e32-4ce3-a9cb-0125ccddeb89",
+						"exec": [
+							"var CommonTestCases= () =>{",
+							"    pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Barn 3 - 8 år\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('text/xml; charset=utf-8');",
+							"   // pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+							"",
+							"});",
+							"var srChannel = xml2Json(responseBody);",
+							"console.log(srChannel);",
+							"pm.test(\"Your test name\", function () {",
+							"    //var jsonData = pm.response.json();",
+							"pm.expect(srChannel.sr.programcategories.programcategory[2].$.name).to.eql(\"Dokumentär\");",
+							"pm.expect(srChannel.sr.programcategories.programcategory[4].$.id).to.eql(\"135\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    //pm.expect(pm.response.responseTime).to.be.below(10);",
+							"  pm.expect(pm.response.responseTime).to.be.below(50);",
+							"",
+							"});",
+							"};",
+							"//CommonTestCases();",
+							"",
+							"pm.environment.set(\"CommonTestCases\", CommonTestCases.toString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://api.sr.se/api/v2/programcategories/",
+					"protocol": "http",
+					"host": [
+						"api",
+						"sr",
+						"se"
+					],
+					"path": [
+						"api",
+						"v2",
+						"programcategories",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

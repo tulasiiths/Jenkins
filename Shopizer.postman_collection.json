@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "1be9297c-bd0f-4c26-9043-a3540eef8d35",
+		"name": "Shopizer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication User",
+			"item": [
+				{
+					"name": "authentication user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"password\", \"username\": \"admin@shopizer.com\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authentication user Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"CoronaVirus-19\", \"username\": \"Tulasi.Rao.Chintala@iths.se\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authentication details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MTc3MjgsImlhdCI6MTU4ODAxMjkyOH0.MFCGIC_cqSlWVIli6ZxCVJWjqBXC181RIpYEFGYxRtCKEpoH288UgNi63HZIzPJyizNbL1ApPB5aV8m2kcJoGg"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get authentication user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/user/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authenticate Customer Api",
+			"item": [
+				{
+					"name": "Customer user creation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"Coronavirus-19\", \"username\": \"tulasiithsse1223@gmail.com\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customer/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer user details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dWxhc2lpdGhzc2UxMjIzQGdtYWlsLmNvbSIsImF1ZCI6ImFwaSIsImV4cCI6MTU4ODYzMTU1MiwiaWF0IjoxNTg4MDI2NzUyfQ.tPLhchs6FX80bHLffztelYOnF1Z1pNPaA2aCX8t2TSTSkBMr-zwCS6TZR3w7eoAmSO7-H6G57pxXrHdXminiag"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/customer/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"customer",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"Shopizer\", \"username\": \"Shopizer\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customer/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/users/50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"users",
+								"50"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Order API",
+			"item": [
+				{
+					"name": "Product API",
+					"item": [
+						{
+							"name": "Product list ",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/products/4/reviews",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"4",
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create product review",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \r\n        \"language\": \"en\",\r\n        \"description\": \"its too cheaper\",\r\n        \"productId\": 4,\r\n        \"date\": \"2020-04-28\",\r\n        \"rating\": 4.5,\r\n        \"customer\": {\r\n            \"id\": 50,\r\n            \"emailAddress\": \"tulasieee@gmail.com1\",\r\n            \"billing\": {\r\n                \"postalCode\": \"14144\",\r\n                \"countryCode\": null,\r\n                \"firstName\": \"Tulasi\",\r\n                \"lastName\": \"Chintala\",\r\n                \"bilstateOther\": null,\r\n                \"company\": \"\",\r\n                \"phone\": \"+46727601311\",\r\n                \"address\": \"Annerstavagen 17, Huddinge, Harkanwal Singh\",\r\n                \"city\": \"Huddinge\",\r\n                \"stateProvince\": null,\r\n                \"billingAddress\": false,\r\n                \"latitude\": null,\r\n                \"longitude\": null,\r\n                \"zone\": \"NSW\",\r\n                \"country\": \"AU\"\r\n            },\r\n            \"delivery\": {\r\n                \"postalCode\": \"14144\",\r\n                \"countryCode\": null,\r\n                \"firstName\": \"Tulasi\",\r\n                \"lastName\": \"Chintala\",\r\n                \"bilstateOther\": null,\r\n                \"company\": \"\",\r\n                \"phone\": \"+46727601311\",\r\n                \"address\": \"Annerstavagen 17, Huddinge, Harkanwal Singh\",\r\n                \"city\": \"Huddinge\",\r\n                \"stateProvince\": null,\r\n                \"billingAddress\": false,\r\n                \"latitude\": null,\r\n                \"longitude\": null,\r\n                \"zone\": \"NSW\",\r\n                \"country\": \"AU\"\r\n            },\r\n            \"gender\": null,\r\n            \"language\": null,\r\n            \"firstName\": \"Tulasi\",\r\n            \"lastName\": \"Chintala\",\r\n            \"provider\": null,\r\n            \"storeCode\": null,\r\n            \"userName\": null,\r\n            \"rating\": 0.0,\r\n            \"ratingCount\": 0,\r\n            \"attributes\": [],\r\n            \"groups\": []\r\n        }\r\n    }\r\n]"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/private/products/5/reviews",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"private",
+										"products",
+										"5",
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "orders list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/orders?count=100&start=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "100"
+								},
+								{
+									"key": "start",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orders list details",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e68dbd29-abf8-4803-be12-6a8b1ad9354b",
+								"exec": [
+									"",
+									"  /* var jsonData = pm.response.json();",
+									"pm.globals.set(\"token\", jsonData.token);",
+									"",
+									"*/"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg2MzA5NTQsImlhdCI6MTU4ODAyNjE1NH0.B8NqrJM3LA5wzM8uGUiDjBQmCRG4hnSkd8UfKco3aJCd_t7n-SSreU7J7PLPwTwbzyY1e6xYx0PyQs9_QuD83A"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

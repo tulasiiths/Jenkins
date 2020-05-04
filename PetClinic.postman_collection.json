@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "ac402bfe-747c-446e-97b3-4c9cb7862854",
+		"name": "PetClinic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PetClinic",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/find.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners/10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testing",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/find.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners.html?lastName=est",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners.html"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "est"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Petclinic",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/10/edit.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners/10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create PetClinic",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Origin",
+						"value": "http://127.0.0.1:9966"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/10/edit.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Carlos^",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Tulasi+Rao^",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "2335+Independence+La.^",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Waunakee^",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "6085555487",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners/10/edit.html",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners",
+						"10",
+						"edit.html"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Clinic",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Origin",
+						"value": "http://127.0.0.1:9966"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/10/edit.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Carlos^",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Tulasi+Rao^",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "2335+Independence+La.^",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Waunakee^",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "6085555487",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners/10/edit.html",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners",
+						"10",
+						"edit.html"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

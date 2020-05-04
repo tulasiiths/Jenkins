@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "17676764-e1f4-44b8-86f0-cea64647317e",
+		"name": "Kortspel 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Blackjack 21",
+			"item": [
+				{
+					"name": "Shuffel a new deck and give me 2 cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cadd3ba5-2dcb-4879-a6c8-d174c51096cd",
+								"exec": [
+									"console.log('************************************************');",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"deck_id\", jsonData.deck_id);",
+									"",
+									"var valueTotal=0;",
+									"var index=0;",
+									"for (;index <2;index++){",
+									"    console.log(\"jsonData.cards[\"+index+\"].value: \"+jsonData.cards[index].value)",
+									"    switch (jsonData.cards[index].value){",
+									"        case (\"ACE\"):",
+									"            if (valueTotal < 11){",
+									"                valueTotal=valueTotal+11;",
+									"            } else {",
+									"                 valueTotal=valueTotal+1;",
+									"            }",
+									"            break;",
+									"        case (\"KING\"):",
+									"            valueTotal=valueTotal+10;",
+									"            break;       ",
+									"        case (\"QUEEN\"):",
+									"            valueTotal=valueTotal+10;",
+									"            break;   ",
+									"        case (\"JACK\"):",
+									"            valueTotal=valueTotal+10;",
+									"            break;  ",
+									"        case \"2\":",
+									"        case \"3\":",
+									"        case \"4\":",
+									"        case \"5\":",
+									"        case \"6\":",
+									"        case \"7\":",
+									"        case \"8\":",
+									"        case \"9\":",
+									"        case \"10\":",
+									"            valueTotal=valueTotal+parseInt(jsonData.cards[index].value);",
+									"            break;",
+									"    }",
+									"}",
+									"console.log(\"valueTotal: \"+valueTotal);",
+									"pm.globals.set(\"valueTotal\", valueTotal);",
+									"if (valueTotal === 21){",
+									"    console.log(\"Hurra 21 !!\");",
+									"}",
+									"if (valueTotal > 21){",
+									"    console.log(\"Sorry you Loose\");",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/draw/?count=2",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Give me a new card and check if I am over 21 then  you loose",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af1d204a-be5c-41a4-8cb9-f83ff4627762",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"var valueTotal=globals.valueTotal;",
+									"console.log(\"jsonData.cards[0].value: \"+jsonData.cards[0].value)",
+									"switch (jsonData.cards[0].value){",
+									"    case (\"ACE\"):",
+									"        if (valueTotal < 11){",
+									"            valueTotal=valueTotal+11;",
+									"        } else {",
+									"             valueTotal=valueTotal+1;",
+									"        }",
+									"        break;",
+									"    case (\"KING\"):",
+									"        valueTotal=valueTotal+10;",
+									"        break;       ",
+									"    case (\"QUEEN\"):",
+									"        valueTotal=valueTotal+10;",
+									"        break;   ",
+									"    case (\"JACK\"):",
+									"        valueTotal=valueTotal+10;",
+									"        break;  ",
+									"    case \"2\":",
+									"    case \"3\":",
+									"    case \"4\":",
+									"    case \"5\":",
+									"    case \"6\":",
+									"    case \"7\":",
+									"    case \"8\":",
+									"    case \"9\":",
+									"    case \"10\":",
+									"        valueTotal=valueTotal+parseInt(jsonData.cards[0].value);",
+									"        break;",
+									"}",
+									"",
+									"console.log(\"valueTotal: \"+valueTotal);",
+									"pm.globals.set(\"valueTotal\", valueTotal);",
+									"if (valueTotal === 21){",
+									"    console.log(\"Hurra 21 !!\");",
+									"}",
+									"if (valueTotal > 21){",
+									"    console.log(\"Sorry you Loose\");",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"{{deck_id}}",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": []
+		},
+		{
+			"name": "Basic tests",
+			"item": [
+				{
+					"name": "Blanda  ny Kortlek",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d30178c9-1acc-44dd-bf2f-c568209838be",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"pm.test(\"success\", function () {",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"pm.globals.set(\"deck_id\",jsonData.deck_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"new",
+								"shuffle",
+								""
+							],
+							"query": [
+								{
+									"key": "deck_count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ge mig ett kort",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9869cbb4-6012-40b8-867c-0e76ff3654a1",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.globals.set(\"suit\", jsonData.cards[0].suit);",
+									"pm.globals.set(\"value\", jsonData.cards[0].value);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"{{deck_id}}",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ge mig ett kort till",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ca916001-7aca-4d89-893f-6aa6fb1b30aa",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Similair Suite\", function () {",
+									"    pm.expect(jsonData.cards[0].suit).to.eql(globals.suit);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://deckofcardsapi.com/api/deck/{{deck_id}}/draw/?count=1",
+							"protocol": "https",
+							"host": [
+								"deckofcardsapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"deck",
+								"{{deck_id}}",
+								"draw",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": []
+		}
+	],
+	"protocolProfileBehavior": []
+}

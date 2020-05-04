@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "82909ba0-9a18-4f32-9fa3-473b87cccd2e",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68b72723-e1eb-44d4-b09f-5f97cbad0bdc",
+						"exec": [
+							"",
+							"    ",
+							"pm.globals.set(\"BoardID\", \"5b6893f01cb3228998cf629e\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/member/me?key={{key}}&token={{token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"member",
+						"me"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "myBoards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68b72723-e1eb-44d4-b09f-5f97cbad0bdc",
+						"exec": [
+							"",
+							"    ",
+							"pm.globals.set(\"BoardID\", \"5b6893f01cb3228998cf629e\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/member/me/boards?key={{key}}&token={{token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"member",
+						"me",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "board 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/boards/5b6893f01cb3228998cf629e?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"boards",
+						"5b6893f01cb3228998cf629e"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new board iths",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/boards/5b6893f01cb3228998cf629e?key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"boards",
+						"5b6893f01cb3228998cf629e"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post List",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{url}}/lists?name=\"Tulasi Rao Chintala\"&idBoard={{BoardID}}&pos=top&key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "\"Tulasi Rao Chintala\""
+						},
+						{
+							"key": "idBoard",
+							"value": "{{BoardID}}"
+						},
+						{
+							"key": "pos",
+							"value": "top"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Card",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"560bf4298b3dda300c18d09c\",\r\n  \"name\": \"US National Parks\",\r\n  \"desc\": \"\",\r\n  \"descData\": null,\r\n  \"closed\": false,\r\n  \"idOrganization\": \"577eb8850b41e08c3034aae2\",\r\n  \"invited\": false,\r\n  \"pinned\": false,\r\n  \"starred\": true,\r\n  \"url\": \"https://trello.com/b/tBmYPSYe/us-national-parks\",\r\n  \"prefs\": {\r\n    \"permissionLevel\": \"public\",\r\n    \"voting\": \"disabled\",\r\n    \"comments\": \"members\",\r\n    \"invitations\": \"members\",\r\n    \"selfJoin\": true,\r\n    \"cardCovers\": true,\r\n    \"cardAging\": \"regular\",\r\n    \"calendarFeedEnabled\": false,\r\n    \"background\": \"560bfbb5176d070c67adc2b9\",\r\n    \"backgroundImage\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/1920x1080/b5ab43954a54880e455d3b4e5109644c/Bryce_Canyon.jpg\",\r\n    \"backgroundImageScaled\": [\r\n      {\r\n        \"width\": 140,\r\n        \"height\": 100,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/140x100/cf6ffdfac5ecf934ec324bf028b82686/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 256,\r\n        \"height\": 192,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/256x192/2189d1f2d6c159c7de210412cc0e971f/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 480,\r\n        \"height\": 480,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/480x480/62bde347e629774a83378caf61f0fdb7/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 960,\r\n        \"height\": 960,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/960x960/3102fa79837dfd37834cfaee02d1921c/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 1024,\r\n        \"height\": 1024,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/1024x1024/53a50ede7425af0b02a7b9bde783fe94/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 1280,\r\n        \"height\": 1280,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/1280x1280/491f54004976a4a81706caae613acf7f/Bryce_Canyon.jpg\"\r\n      },\r\n      {\r\n        \"width\": 1920,\r\n        \"height\": 1080,\r\n        \"url\": \"https://trello-backgrounds.s3.amazonaws.com/556c8537a1928ba745504dd8/1920x1080/b5ab43954a54880e455d3b4e5109644c/Bryce_Canyon.jpg\"\r\n      }\r\n    ],\r\n    \"backgroundTile\": false,\r\n    \"backgroundBrightness\": \"light\",\r\n    \"canBePublic\": false,\r\n    \"canBeOrg\": false,\r\n    \"canBePrivate\": false,\r\n    \"canInvite\": true\r\n  },\r\n  \"invitations\": [\r\n    \r\n  ],\r\n  \"memberships\": [\r\n    {\r\n      \"id\": \"560bf4298b3dda300c18d09d\",\r\n      \"idMember\": \"556c8537a1928ba745504dd8\",\r\n      \"memberType\": \"admin\",\r\n      \"unconfirmed\": false,\r\n      \"deactivated\": false\r\n    },\r\n    {\r\n      \"id\": \"58ebc5d5abcedaf34a60800e\",\r\n      \"idMember\": \"56fd3de8ba3cbeb22737fd55\",\r\n      \"memberType\": \"normal\",\r\n      \"unconfirmed\": false,\r\n      \"deactivated\": false\r\n    }\r\n  ],\r\n  \"shortLink\": \"tBmYPSYe\",\r\n  \"subscribed\": false,\r\n  \"labelNames\": {\r\n    \"green\": \"Visited\",\r\n    \"yellow\": \"\",\r\n    \"orange\": \"\",\r\n    \"red\": \"\",\r\n    \"purple\": \"\",\r\n    \"blue\": \"\",\r\n    \"sky\": \"\",\r\n    \"lime\": \"\",\r\n    \"pink\": \"\",\r\n    \"black\": \"\"\r\n  },\r\n  \"powerUps\": [\r\n    \r\n  ],\r\n  \"dateLastActivity\": \"2017-06-17T03:22:12.853Z\",\r\n  \"dateLastView\": \"2017-06-26T14:58:10.989Z\",\r\n  \"shortUrl\": \"https://trello.com/b/tBmYPSYe\",\r\n  \"idTags\": [\r\n    \r\n  ],\r\n  \"datePluginDisable\": null\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/lists?name=\"Tulasi Rao Chintala\"&idBoard={{BoardID}}&pos=top&key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "\"Tulasi Rao Chintala\""
+						},
+						{
+							"key": "idBoard",
+							"value": "{{BoardID}}"
+						},
+						{
+							"key": "pos",
+							"value": "top"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lists",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "ITHSteam"
+				},
+				"url": {
+					"raw": "{{url}}lists/id?fields=name%2Cclosed%2CidBoard%2Cpos&key={{key}}&token={{token}}",
+					"host": [
+						"{{url}}lists"
+					],
+					"path": [
+						"id"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "name%2Cclosed%2CidBoard%2Cpos"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": []
+}

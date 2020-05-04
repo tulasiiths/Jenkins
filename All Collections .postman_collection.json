@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "a260ca05-c2e6-46b8-b8e7-049029938f50",
+		"name": "All Collections ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All Collections",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.getpostman.com/collections",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"}); ",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid); */"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/collections/{{collection_uid}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"collections",
+						"{{collection_uid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"});",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid);*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n \t\"collection\": {\r\n    \"variables\": [],\r\n    \"info\": {\r\n      \"name\": \"Chintala Collection\",\r\n      \"description\": \"This is just a sample collection.\",\r\n      \"schema\": \"https://schema.getpostman.com/json/collection/v2.0.0/collection.json\"\r\n    },\r\n    \"item\": [\r\n      {\r\n        \"name\": \"This is a folder\",\r\n        \"description\": \"for testing\",\r\n        \"item\": [\r\n          {\r\n            \"name\": \"Tulasi POST Request\",\r\n            \"request\": {\r\n              \"url\": \"echo.getpostman.com/post\",\r\n              \"method\": \"POST\",\r\n              \"header\": [\r\n                {\r\n                  \"key\": \"Content-Type\",\r\n                  \"value\": \"application/json\",\r\n                  \"description\": \"\"\r\n                }\r\n              ],\r\n              \"body\": {\r\n                \"mode\": \"raw\",\r\n                \"raw\": \"{\\n\\t\\\"data\\\": \\\"123\\\"\\n}\"\r\n              },\r\n              \"description\": \"This is a sample POST Request\"\r\n            },\r\n            \"response\": []\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"name\": \"Tulasi GET Request\",\r\n        \"request\": {\r\n          \"url\": \"echo.getpostman.com/get\",\r\n          \"method\": \"GET\",\r\n          \"header\": [],\r\n          \"body\": {\r\n            \"mode\": \"formdata\",\r\n            \"formdata\": []\r\n          },\r\n          \"description\": \"This is a sample GET Request\"\r\n        },\r\n        \"response\": []\r\n      }\r\n    ]\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/collections\n",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"collections\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Collection Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"});",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid);*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"collection\": {\r\n    \"id\": \"a14c6da7-afba-4a84-bf22-4febbaaced6c\",\r\n    \"uid\": \"5852-a14c6da7-afba-4a84-bf22-4febbaaced6c\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/collections/{{collection_uid}}\n",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"collections",
+						"{{collection_uid}}\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Collection fork",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"});",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid);*/"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1b49ade2-3b9f-4b09-8209-9e3b619c69f2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Create Collection fork\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/collections/fork/{{collection_uid}}?workspace={{workspace_id2}}\n&label=Fork testing\n",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"collections",
+						"fork",
+						"{{collection_uid}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "workspace",
+							"value": "{{workspace_id2}}\n"
+						},
+						{
+							"key": "label",
+							"value": "Fork testing\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Workspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"});",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid);*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/workspaces",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"workspaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Workspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc6beb-b0c7-4d5f-9dcd-a682d58a2ad2",
+						"exec": [
+							"",
+							"/*pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							" var jsonData = pm.response.json();",
+							" ",
+							"pm.test(\"Status success\", function () {",
+							"    ",
+							"    pm.expect(jsonData.collections.name).to.eql(\"Trello2\");",
+							"});",
+							"pm.test(\"Collections UID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.collections.uid).to.eql(environment.collcetion_uid);",
+							"});",
+							"",
+							"",
+							"pm.globals.set(\"Collection _uid\", jsonData.collections.uid);",
+							"console.log(\"Collection _uid:\"+ jsonData.collections.uid);*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"type": "text",
+						"value": "{{key}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.getpostman.com/workspaces/{{workspace_id}}\n",
+					"protocol": "https",
+					"host": [
+						"api",
+						"getpostman",
+						"com"
+					],
+					"path": [
+						"workspaces",
+						"{{workspace_id}}\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Clinic",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Proxy-Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Referer",
+						"value": "http://127.0.0.1:9966/petclinic/owners/find.html"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,sv-SE;q=0.8,sv;q=0.7"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=2E8390889B2D89DF20F24068381A54E8"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:9966/petclinic/owners/10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9966",
+					"path": [
+						"petclinic",
+						"owners",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

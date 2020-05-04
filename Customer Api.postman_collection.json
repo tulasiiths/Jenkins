@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "37693d38-7eab-4ae6-b365-6548934b9579",
+		"name": "Customer Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer authentication",
+			"item": [
+				{
+					"name": "Authenticate customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									" var jsonData = pm.response.json();",
+									"pm.globals.set(\"customertoken\", jsonData.token);",
+									"  ",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Response body contains string id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"id\");",
+									"});  ",
+									""
+								],
+								"id": "37c5821f-792b-4551-ad63-3e0fe2366630"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"finalproject2020\",\r\n  \"username\": \"aaart.tester@yahoo.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/customer/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get customer by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Response body expected to have firstname for the given id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");",
+									"});",
+									"pm.test(\"Check the value of email address in response body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.emailAddress).to.eql(\"modi@modi.com\");",
+									"});",
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.billing.country).to.eql(\"IN\");",
+									"});"
+								],
+								"id": "95fcf7e6-6234-40b8-9bc4-2c1079796dff"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true,
+							"user-agent": true,
+							"accept-encoding": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/private/customer/101\n",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer",
+								"101\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									" var jsonData = pm.response.json();",
+									"pm.globals.set(\"customer_id\", jsonData.id);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Check the value of firstName\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.billing.firstName).to.eql(\"Ammi4\");",
+									"});",
+									"pm.test(\"Check the value of firstname in delivery\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.delivery.firstName).to.eql(\"AAART\");",
+									"});"
+								],
+								"id": "b8bdd147-d876-4f4d-8692-29e8e004c618"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenShopizer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"emailAddress\": \"ammi4.tester@yahoo.com\",\r\n    \"billing\": {\r\n        \"postalCode\": \"222\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"Ammi4\",\r\n        \"lastName\": \"Redteam\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"ITHS\",\r\n        \"phone\": \"77777700\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"delivery\": {\r\n        \"postalCode\": \"8888\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"AAART\",\r\n        \"lastName\": \"Redteam\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"\",\r\n        \"phone\": \"777777\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"gender\": null,\r\n    \"language\": null,\r\n    \"firstName\": \"AAART\",\r\n    \"lastName\": \"Redteam\",\r\n    \"provider\": null,\r\n    \"storeCode\": null,\r\n    \"userName\": null,\r\n    \"rating\": 0.0,\r\n    \"ratingCount\": 0,\r\n    \"attributes\": [],\r\n    \"groups\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/private/customer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updates a customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Check the value of firstName\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.billing.firstName).to.eql(\"ABCD\");",
+									"});",
+									"pm.test(\"Check the value of firstname in delivery\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.delivery.firstName).to.eql(\"AAART\");",
+									"});"
+								],
+								"id": "71a6d64e-b049-47b3-9522-c8bacb4a76c4"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenShopizer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"emailAddress\": \"abcd.tester@yahoo.com\",\r\n    \"billing\": {\r\n        \"postalCode\": \"222\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"ABCD\",\r\n        \"lastName\": \"Redteam\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"ITHS\",\r\n        \"phone\": \"77777700\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"delivery\": {\r\n        \"postalCode\": \"8888\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"AAART\",\r\n        \"lastName\": \"Redteam\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"\",\r\n        \"phone\": \"777777\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"gender\": null,\r\n    \"language\": null,\r\n    \"firstName\": \"AAART\",\r\n    \"lastName\": \"Redteam\",\r\n    \"provider\": null,\r\n    \"storeCode\": null,\r\n    \"userName\": null,\r\n    \"rating\": 0.0,\r\n    \"ratingCount\": 0,\r\n    \"attributes\": [],\r\n    \"groups\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/private/customer/{{customer_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting the customer id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/private/customer/{{customer_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get filtered customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Check the value of firstName\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.customers[0].billing.firstName).to.eql(\"John\");",
+									"});",
+									"pm.test(\"Check the value of email address in response array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.customers[2].emailAddress).to.eql(\"aaart.tester@yahoo.com\");",
+									"});"
+								],
+								"id": "a4020179-4cdd-4432-b5fe-4c3e863908ef"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenShopizer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/private/customers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updates a logged in customer",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenShopizer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer{{customertoken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"emailAddress\": \"raajSimaran.tester@yahoo.com\",\r\n    \"billing\": {\r\n        \"postalCode\": \"333 3\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"Simaran\",\r\n        \"lastName\": \"Raj\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"\",\r\n        \"phone\": \"777777\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"delivery\": {\r\n        \"postalCode\": \"333 3\",\r\n        \"countryCode\": null,\r\n        \"firstName\": \"AAART\",\r\n        \"lastName\": \"Redteam\",\r\n        \"bilstateOther\": null,\r\n        \"company\": \"\",\r\n        \"phone\": \"777777\",\r\n        \"address\": \"liljeholmen\",\r\n        \"city\": \"Mumbai\",\r\n        \"stateProvince\": null,\r\n        \"billingAddress\": false,\r\n        \"latitude\": null,\r\n        \"longitude\": null,\r\n        \"zone\": \"QC\",\r\n        \"country\": \"CA\"\r\n    },\r\n    \"gender\": null,\r\n    \"language\": null,\r\n    \"firstName\": \"AAART\",\r\n    \"lastName\": \"Redteam\",\r\n    \"provider\": null,\r\n    \"storeCode\": null,\r\n    \"userName\": null,\r\n    \"rating\": 0.0,\r\n    \"ratingCount\": 0,\r\n    \"attributes\": [],\r\n    \"groups\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/auth/customer/51",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"customer",
+								"51"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get authorised user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Proxy-Authorization",
+								"value": "Bearer{{customertoken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/private/customer/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer Auth",
+			"item": [
+				{
+					"name": "create customer auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "51cbc475-0bdf-4583-8363-887fb2092027",
+								"exec": [
+									" ",
+									"  var customerData = pm.response.json();",
+									" ",
+									" pm.globals.set(\"Customer tokenValue \", customerData.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzaG9waXplci5jb20iLCJhdWQiOiJhcGkiLCJleHAiOjE1ODg3ODkxNzUsImlhdCI6MTU4ODE4NDM3NX0.i2z9evzj8ljJ4M7rBbI6XjFmn3B9RmW2IG8T0g0N55xOChX2i1Bxp8Q3M5EtS98cognic-IGECXgtVG1Evtf6w"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"Coronavirus-1\", \"username\": \"tulasiithsse1@gmail.com\"}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customer/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer Auth details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0dWxhc2lpdGhzc2UzQGdtYWlsLmNvbSIsImF1ZCI6ImFwaSIsImV4cCI6MTU4ODkxMzI2MSwiaWF0IjoxNTg4MzA4NDYxfQ.GpT2S6G-iTczgByEjukHByOWfVr4xiwFE_pKm90OXa0KMGcHSRU3zGgloGxaT2dE8Ffby4EvkBnkkpuf8guThQ"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/customer/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"customer",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer user T",
+			"item": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

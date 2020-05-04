@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "86330381-de00-4e6d-822e-0452a2bc825a",
+		"name": "Excahnge Rates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Latest values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6c371c2-42eb-4600-b9c0-5486604b4536",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"SEK\");",
+							"});",
+							"pm.test(\"Check sek value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.rates.SEK).to.eql(11.1523);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://api.exchangeratesapi.io/latest",
+					"protocol": "https",
+					"host": [
+						"api",
+						"exchangeratesapi",
+						"io"
+					],
+					"path": [
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "with parameters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.exchangeratesapi.io/history?start_at=2018-01-01&end_at=2018-09-01 ",
+					"protocol": "https",
+					"host": [
+						"api",
+						"exchangeratesapi",
+						"io"
+					],
+					"path": [
+						"history"
+					],
+					"query": [
+						{
+							"key": "start_at",
+							"value": "2018-01-01"
+						},
+						{
+							"key": "end_at",
+							"value": "2018-09-01 "
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

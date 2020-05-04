@@ -1,0 +1,1453 @@
+{
+	"info": {
+		"_postman_id": "ade902ba-23ec-444d-93e8-247bc032fa2b",
+		"name": "SL Travel Planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get SL Travel about  3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74bc0b68-f2ad-4b66-bcdc-15f9b922b2ad",
+						"exec": [
+							"",
+							"",
+							"const collectionVariables = pm.collectionVariables.toObject();",
+							"for (let variableName in collectionVariables){",
+							"   // if (variableName.includes(('__export')){   // for particular variables",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables",
+							"",
+							"}",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\");",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);",
+							"});",
+							"",
+							" let slTravel = pm.response.json();",
+							"",
+							"pm.test(\"Checking Origin station name\", function () {",
+							"   ",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Origin.name).to.eql(\"Södertörns högskola\");",
+							"}); ",
+							"",
+							"pm.test(\"Checking Destination station name\", function () {",
+							"   ",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Destination.name).to.eql(\"Visättra\");",
+							"});",
+							"",
+							"pm.test(\"Checking Bus availability name\", function () {",
+							"   ",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Product.name).to.have.oneOf([\"Buss 704\",\"Buss 713\"]);",
+							"});",
+							"",
+							"pm.test(\"Checking One Way Trip\", function () {",
+							"   ",
+							"    pm.expect(slTravel.Trip[3].TariffResult.fareSetItem[0].name).to.eql(\"ONEWAY\");",
+							"});",
+							"",
+							"var expect = require('chai').expect",
+							"  , Originname = 'Södertörns högskola'",
+							"  , Destinationname = 'Visättra';",
+							"  ",
+							"    pm.test(\"Testing the different body response values\", function(){",
+							"",
+							"expect(Originname).to.be.a('string');",
+							"expect(Originname).to.equal('Södertörns högskola');",
+							"expect(Originname).to.have.lengthOf(19);",
+							"expect(Destinationname).to.have.eql(\"Visättra\").with.lengthOf(8);",
+							"",
+							"});",
+							"",
+							"",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Testing different type variables\",function(){",
+							"pm.environment.get(\"{{url}}\");",
+							"pm.variables.get(\"key\");",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);",
+							"",
+							"});",
+							"",
+							"",
+							"",
+							"var Trip = {",
+							"  SlTravelPlan: function() {",
+							"    return this.originname + \" & \" + this.destinationname;",
+							"  }",
+							"}",
+							"  var Journey1 = {",
+							"  originname:\"Södertörns högskola\",",
+							"  destinationname: \"Visättra\"",
+							"}",
+							"var Journey2 = {",
+							"  originname:\"Stockholm\",",
+							"  destinationname: \"Huddinge\"",
+							"}",
+							"pm.test(\"Full Name verification code\",function(){",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Södertörns högskola & Visättra\");",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");",
+							"    ",
+							"});",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"ServiceDays\": [{\r\n\t\t\"planningPeriodBegin\": \"2020-04-10\",\r\n\t\t\"planningPeriodEnd\": \"2020-05-10\",\r\n\t\t\"sDaysR\": \"lör, sön\",\r\n\t\t\"sDaysI\": \"och 10., 13. apr, 1., 21. maj\",\r\n\t\t\"sDaysB\": \"0C1FF061E1830E0C18B0\"\r\n\t}],\r\n\t\"LegList\": {\r\n\t\t\"Leg\": [{\r\n\t\t\t\"Origin\": {\r\n\t\t\t\t\"name\": \"Tulasi\",\r\n\t\t\t\t\"type\": \"ST\",\r\n\t\t\t\t\"id\": \"A=1@O=Tulasi @X=17943674@Y=59220324@U=74@L=400170483@\",\r\n\t\t\t\t\"extId\": \"400170483\",\r\n\t\t\t\t\"lon\": 17.943674,\r\n\t\t\t\t\"lat\": 59.220324,\r\n\t\t\t\t\"prognosisType\": \"PROGNOSED\",\r\n\t\t\t\t\"time\": \"08:21:00\",\r\n\t\t\t\t\"date\": \"2020-04-10\",\r\n\t\t\t\t\"rtTime\": \"08:24:00\",\r\n\t\t\t\t\"rtDate\": \"2020-04-10\",\r\n\t\t\t\t\"hasMainMast\": true,\r\n\t\t\t\t\"mainMastId\": \"A=1@O=Tulasi (Huddinge)@X=17943593@Y=59220449@U=74@L=300107004@\",\r\n\t\t\t\t\"mainMastExtId\": \"300107004\",\r\n\t\t\t\t\"additional\": false\r\n\t\t\t},\r\n\t\t\t\"Destination\": {\r\n\t\t\t\t\"name\": \"Aarush\",\r\n\t\t\t\t\"type\": \"ST\",\r\n\t\t\t\t\"id\": \"A=1@O=Aarush@X=17957094@Y=59217132@U=74@L=400170867@\",\r\n\t\t\t\t\"extId\": \"400170867\",\r\n\t\t\t\t\"lon\": 17.957094,\r\n\t\t\t\t\"lat\": 59.217132,\r\n\t\t\t\t\"prognosisType\": \"PROGNOSED\",\r\n\t\t\t\t\"time\": \"08:24:00\",\r\n\t\t\t\t\"date\": \"2020-04-10\",\r\n\t\t\t\t\"rtTime\": \"08:27:00\",\r\n\t\t\t\t\"rtDate\": \"2020-04-10\",\r\n\t\t\t\t\"hasMainMast\": true,\r\n\t\t\t\t\"mainMastId\": \"A=1@O=Aarush (Huddinge)@X=17956744@Y=59217807@U=74@L=300107010@\",\r\n\t\t\t\t\"mainMastExtId\": \"300107010\",\r\n\t\t\t\t\"additional\": false\r\n\t\t\t}\r\n\t\t}]\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/trip.Json?key={{key}}&originExtId=7004&destExtId=7010",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"trip.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtId",
+							"value": "7004"
+						},
+						{
+							"key": "destExtId",
+							"value": "7010"
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-09",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodEnd",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "line",
+							"value": "740",
+							"disabled": true
+						},
+						{
+							"key": "direction",
+							"value": "Huddinge station",
+							"disabled": true
+						},
+						{
+							"key": "mainMastExtId",
+							"value": "Visättra",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel about  2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74bc0b68-f2ad-4b66-bcdc-15f9b922b2ad",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                        \"Origin\": {\r\n                            \"name\": \"Södertörns högskola\",\r\n                            \"type\": \"ST\",\r\n                            \"id\": \"A=1@O=Södertörns högskola@X=17943674@Y=59220324@U=74@L=400170483@\",\r\n                            \"extId\": \"400170483\",\r\n                            \"lon\": 17.943674,\r\n                            \"lat\": 59.220324,\r\n                            \"prognosisType\": \"PROGNOSED\",\r\n                            \"time\": \"20:02:00\",\r\n                            \"date\": \"2020-04-09\",\r\n                            \"rtTime\": \"20:04:00\",\r\n                            \"rtDate\": \"2020-04-09\",\r\n                            \"hasMainMast\": true,\r\n                            \"mainMastId\": \"A=1@O=Södertörns högskola (Huddinge)@X=17943593@Y=59220449@U=74@L=300107004@\",\r\n                            \"mainMastExtId\": \"Södertörns högskola\",\r\n                            \"additional\": false\r\n                        },\r\n                        \"Destination\": {\r\n                            \"name\": \"Visättra\",\r\n                            \"type\": \"ST\",\r\n                            \"id\": \"A=1@O=Visättra@X=17957094@Y=59217132@U=74@L=400170867@\",\r\n                            \"extId\": \"400170867\",\r\n                            \"lon\": 17.957094,\r\n                            \"lat\": 59.217132,\r\n                            \"prognosisType\": \"PROGNOSED\",\r\n                            \"time\": \"20:06:00\",\r\n                            \"date\": \"2020-04-09\",\r\n                            \"rtTime\": \"20:08:00\",\r\n                            \"rtDate\": \"2020-04-09\",\r\n                            \"hasMainMast\": true,\r\n                            \"mainMastId\": \"A=1@O=Visättra (Huddinge)@X=17956744@Y=59217807@U=74@L=300107010@\",\r\n                            \"mainMastExtId\": \"Visättra\",\r\n                            \"additional\": false\r\n                        }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/trip.Json?key={{key}}&originExtId=7004&destExtId=7010",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"trip.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtId",
+							"value": "7004"
+						},
+						{
+							"key": "destExtId",
+							"value": "7010"
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-09",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodEnd",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "line",
+							"value": "740",
+							"disabled": true
+						},
+						{
+							"key": "direction",
+							"value": "Huddinge station",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel by OriginExtId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "197145f8-69b9-4dfe-b0b9-221c26eb3e67",
+						"exec": [
+							"pm.sendRequest({\r",
+							"    //url: pm.environment.get(\"{{url}}\"),\r",
+							"    url:'https://api.sl.se/api2/LineData.Json?model=site&key={{stopsAndLines}}&SiteId=7141',\r",
+							"    method: 'GET',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        \r",
+							"    }\r",
+							"    \r",
+							"    \r",
+							"}, function (err, res) {\r",
+							"    \r",
+							"    pm.globals.get(\"stopsAndLines\", res.json().stopsAndLines);\r",
+							"    \r",
+							"    console.log(res);\r",
+							"    \r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "49b0506d-a50d-4dae-bdba-9b5052ce7ae8",
+						"exec": [
+							"const collectionVariables = pm.collectionVariables.toObject();\r",
+							"for (let variableName in collectionVariables){\r",
+							"   // if (variableName.includes(('__export')){   // for particular variables\r",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables\r",
+							"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);\r",
+							"});\r",
+							"\r",
+							" let slTravel = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checking Origin station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Origin.name).to.eql(\"Kästadalsvägen\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Checking Destination station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Destination.name).to.eql(\"Flemingsbergs station\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking Bus availability name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Product.name).to.have.oneOf([\"blåbuss 172\",\"Buss 740\",\"Buss 713\",\"Buss 865\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking One Way Trip\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[3].TariffResult.fareSetItem[0].name).to.eql(\"ONEWAY\");\r",
+							"});\r",
+							"\r",
+							"var expect = require('chai').expect\r",
+							"  , Originname = 'Kästadalsvägen'\r",
+							"  , Destinationname = 'Flemingsbergs station';\r",
+							"  \r",
+							"    pm.test(\"Testing the different body response values\", function(){\r",
+							"\r",
+							"expect(Originname).to.be.a('string');\r",
+							"expect(Originname).to.equal('Kästadalsvägen');\r",
+							"expect(Originname).to.have.lengthOf(14);\r",
+							"expect(Destinationname).to.have.eql(\"Flemingsbergs station\").with.lengthOf(21);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest('api.sl.se/api2/LineData.Json?model=site&key=(pm.globals.get(res.json().stopsAndLines)&SiteId=7140', function (err, res) {\r",
+							"  if (err) { console.log(err); }\r",
+							"  pm.test('response should be okay to process', function () {\r",
+							"    pm.expect(err).to.equal(null);\r",
+							"    pm.expect(res).to.have.property('code', 200);\r",
+							"    pm.expect(res).to.have.property('status', 'OK');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Testing different type variables\",function(){\r",
+							"pm.environment.get(\"key\");\r",
+							"pm.variables.get(\"key\");\r",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var Trip = {\r",
+							"  SlTravelPlan: function() {\r",
+							"    return this.originname + \" & \" + this.destinationname;\r",
+							"  }\r",
+							"}\r",
+							"  var Journey1 = {\r",
+							"  originname:\"Kästadalsvägen\",\r",
+							"  destinationname: \"Flemingsbergs station\"\r",
+							"}\r",
+							"var Journey2 = {\r",
+							"  originname:\"Stockholm\",\r",
+							"  destinationname: \"Huddinge\"\r",
+							"}\r",
+							"pm.test(\"Full Name verification code\",function(){\r",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Kästadalsvägen & Flemingsbergs station\");\r",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");\r",
+							"    \r",
+							"});\r",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));\r",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/trip.Json?key={{key}}&originExtId=7140&destExtId=7005&siteid=7000",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"trip.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtId",
+							"value": "7140"
+						},
+						{
+							"key": "destExtId",
+							"value": "7005"
+						},
+						{
+							"key": "via",
+							"value": "7010;7012",
+							"disabled": true
+						},
+						{
+							"key": "stationName",
+							"value": "Erikslund",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "flemingsberg",
+							"disabled": true
+						},
+						{
+							"key": "extId",
+							"value": "400171317",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "siteid",
+							"value": "7000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel by Origin Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "197145f8-69b9-4dfe-b0b9-221c26eb3e67",
+						"exec": [
+							"pm.sendRequest({\r",
+							"    //url: pm.environment.get(\"{{url}}\"),\r",
+							"    url:'https://api.sl.se/api2/LineData.Json?model=site&key={{stopsAndLines}}&SiteId=7141',\r",
+							"    method: 'GET',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        \r",
+							"    }\r",
+							"    \r",
+							"    \r",
+							"}, function (err, res) {\r",
+							"    \r",
+							"    pm.globals.get(\"stopsAndLines\", res.json().stopsAndLines);\r",
+							"    \r",
+							"    console.log(res);\r",
+							"    \r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "49b0506d-a50d-4dae-bdba-9b5052ce7ae8",
+						"exec": [
+							"const collectionVariables = pm.collectionVariables.toObject();\r",
+							"for (let variableName in collectionVariables){\r",
+							"   // if (variableName.includes(('__export')){   // for particular variables\r",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables\r",
+							"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);\r",
+							"});\r",
+							"\r",
+							" let slTravel = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checking Origin station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Origin.name).to.eql(\"Kästadalsvägen\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Checking Destination station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Destination.name).to.eql(\"Flemingsbergs station\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking Bus availability name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Product.name).to.have.oneOf([\"blåbuss 172\",\"Buss 740\",\"Buss 713\",\"Buss 865\"]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking One Way Trip\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[3].TariffResult.fareSetItem[0].name).to.eql(\"ONEWAY\");\r",
+							"});\r",
+							"\r",
+							"var expect = require('chai').expect\r",
+							"  , Originname = 'Kästadalsvägen'\r",
+							"  , Destinationname = 'Flemingsbergs station';\r",
+							"  \r",
+							"    pm.test(\"Testing the different body response values\", function(){\r",
+							"\r",
+							"expect(Originname).to.be.a('string');\r",
+							"expect(Originname).to.equal('Kästadalsvägen');\r",
+							"expect(Originname).to.have.lengthOf(14);\r",
+							"expect(Destinationname).to.have.eql(\"Flemingsbergs station\").with.lengthOf(21);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest('api.sl.se/api2/LineData.Json?model=site&key=(pm.globals.get(res.json().stopsAndLines)&SiteId=7140', function (err, res) {\r",
+							"  if (err) { console.log(err); }\r",
+							"  pm.test('response should be okay to process', function () {\r",
+							"    pm.expect(err).to.equal(null);\r",
+							"    pm.expect(res).to.have.property('code', 200);\r",
+							"    pm.expect(res).to.have.property('status', 'OK');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Testing different type variables\",function(){\r",
+							"pm.environment.get(\"key\");\r",
+							"pm.variables.get(\"key\");\r",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var Trip = {\r",
+							"  SlTravelPlan: function() {\r",
+							"    return this.originname + \" & \" + this.destinationname;\r",
+							"  }\r",
+							"}\r",
+							"  var Journey1 = {\r",
+							"  originname:\"Kästadalsvägen\",\r",
+							"  destinationname: \"Flemingsbergs station\"\r",
+							"}\r",
+							"var Journey2 = {\r",
+							"  originname:\"Stockholm\",\r",
+							"  destinationname: \"Huddinge\"\r",
+							"}\r",
+							"pm.test(\"Full Name verification code\",function(){\r",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Kästadalsvägen & Flemingsbergs station\");\r",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");\r",
+							"    \r",
+							"});\r",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));\r",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/trip.Json?key={{key}}&originExtId=7140&destExtId=7005&siteid=7000",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"trip.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtId",
+							"value": "7140"
+						},
+						{
+							"key": "destExtId",
+							"value": "7005"
+						},
+						{
+							"key": "via",
+							"value": "7010;7012",
+							"disabled": true
+						},
+						{
+							"key": "stationName",
+							"value": "Erikslund",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "flemingsberg",
+							"disabled": true
+						},
+						{
+							"key": "extId",
+							"value": "400171317",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "siteid",
+							"value": "7000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel by via",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "197145f8-69b9-4dfe-b0b9-221c26eb3e67",
+						"exec": [
+							"pm.sendRequest({\r",
+							"    //url: pm.environment.get(\"{{url}}\"),\r",
+							"    url:'https://api.sl.se/api2/LineData.Json?model=site&key={{stopsAndLines}}&SiteId=7141',\r",
+							"    method: 'GET',\r",
+							"    header: {\r",
+							"        'Content-Type': 'application/json',\r",
+							"        \r",
+							"    }\r",
+							"    \r",
+							"    \r",
+							"}, function (err, res) {\r",
+							"    \r",
+							"    pm.globals.get(\"stopsAndLines\", res.json().stopsAndLines);\r",
+							"    \r",
+							"    console.log(res);\r",
+							"    \r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "49b0506d-a50d-4dae-bdba-9b5052ce7ae8",
+						"exec": [
+							"const collectionVariables = pm.collectionVariables.toObject();\r",
+							"for (let variableName in collectionVariables){\r",
+							"   // if (variableName.includes(('__export')){   // for particular variables\r",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables\r",
+							"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);\r",
+							"});\r",
+							"\r",
+							" let slTravel = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Checking Origin station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Origin.name).to.eql(\"Kästadalsvägen\");\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Checking Destination station name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Destination.name).to.eql(\"Huddinge station\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking Bus availability name\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[0].LegList.Leg[0].Product.name).to.have.eql(\"Buss 740\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking One Way Trip\", function () {\r",
+							"   \r",
+							"    pm.expect(slTravel.Trip[3].TariffResult.fareSetItem[0].name).to.eql(\"ONEWAY\");\r",
+							"});\r",
+							"\r",
+							"var expect = require('chai').expect\r",
+							"  , Originname = 'Kästadalsvägen'\r",
+							"  , Destinationname = 'Huddinge station';\r",
+							"  \r",
+							"    pm.test(\"Testing the different body response values\", function(){\r",
+							"\r",
+							"expect(Originname).to.be.a('string');\r",
+							"expect(Originname).to.equal('Kästadalsvägen');\r",
+							"expect(Originname).to.have.lengthOf(14);\r",
+							"expect(Destinationname).to.have.eql(\"Huddinge station\").with.lengthOf(16);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest('api.sl.se/api2/LineData.Json?model=site&key=(pm.globals.get(res.json().stopsAndLines)&SiteId=7140', function (err, res) {\r",
+							"  if (err) { console.log(err); }\r",
+							"  pm.test('response should be okay to process', function () {\r",
+							"    pm.expect(err).to.equal(null);\r",
+							"    pm.expect(res).to.have.property('code', 200);\r",
+							"    pm.expect(res).to.have.property('status', 'OK');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Testing different type variables\",function(){\r",
+							"pm.environment.get(\"key\");\r",
+							"pm.variables.get(\"key\");\r",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var Trip = {\r",
+							"  SlTravelPlan: function() {\r",
+							"    return this.originname + \" & \" + this.destinationname;\r",
+							"  }\r",
+							"}\r",
+							"  var Journey1 = {\r",
+							"  originname:\"Kästadalsvägen\",\r",
+							"  destinationname: \"Huddinge station\"\r",
+							"}\r",
+							"var Journey2 = {\r",
+							"  originname:\"Stockholm\",\r",
+							"  destinationname: \"Huddinge\"\r",
+							"}\r",
+							"pm.test(\"Full Name verification code\",function(){\r",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Kästadalsvägen & Huddinge station\");\r",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");\r",
+							"    \r",
+							"});\r",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));\r",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/trip.Json?key={{key}}&originExtId=7140&destExtId=9527&via=7016;7017",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"trip.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtId",
+							"value": "7140"
+						},
+						{
+							"key": "destExtId",
+							"value": "9527"
+						},
+						{
+							"key": "via",
+							"value": "7016;7017"
+						},
+						{
+							"key": "stationName",
+							"value": "Erikslund",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "flemingsberg",
+							"disabled": true
+						},
+						{
+							"key": "extId",
+							"value": "400171317",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "siteid",
+							"value": "7000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel Journey details Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00a4b72e-8e90-4293-9b64-644a61012c33",
+						"exec": [
+							"const collectionVariables = pm.collectionVariables.toObject();\r",
+							"for (let variableName in collectionVariables){\r",
+							"   // if (variableName.includes(('__export')){   // for particular variables\r",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables\r",
+							"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"redirected\");\r",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);\r",
+							"});\r",
+							"\r",
+							" \r",
+							"var expect = require('chai').expect\r",
+							"  , Originname = 'Kästadalsvägen'\r",
+							"  , Destinationname = 'Huddinge station';\r",
+							"  \r",
+							"    pm.test(\"Testing the different body response values\", function(){\r",
+							"\r",
+							"expect(Originname).to.be.a('string');\r",
+							"expect(Originname).to.equal('Kästadalsvägen');\r",
+							"expect(Originname).to.have.lengthOf(14);\r",
+							"expect(Destinationname).to.have.eql(\"Huddinge station\").with.lengthOf(16);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest('api.sl.se/api2/LineData.Json?model=site&key=(pm.globals.get(res.json().stopsAndLines)&SiteId=7140', function (err, res) {\r",
+							"  if (err) { console.log(err); }\r",
+							"  pm.test('response should be okay to process', function () {\r",
+							"    pm.expect(err).to.equal(null);\r",
+							"    pm.expect(res).to.have.property('code', 200);\r",
+							"    pm.expect(res).to.have.property('status', 'OK');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Testing different type variables\",function(){\r",
+							"pm.environment.get(\"key\");\r",
+							"pm.variables.get(\"key\");\r",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var Trip = {\r",
+							"  SlTravelPlan: function() {\r",
+							"    return this.originname + \" & \" + this.destinationname;\r",
+							"  }\r",
+							"}\r",
+							"  var Journey1 = {\r",
+							"  originname:\"Kästadalsvägen\",\r",
+							"  destinationname: \"Huddinge station\"\r",
+							"}\r",
+							"var Journey2 = {\r",
+							"  originname:\"Stockholm\",\r",
+							"  destinationname: \"Huddinge\"\r",
+							"}\r",
+							"pm.test(\"Full Name verification code\",function(){\r",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Kästadalsvägen & Huddinge station\");\r",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");\r",
+							"    \r",
+							"});\r",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));\r",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/journeydetail.Json?key={{key}}&id=1|52632|0|74|10052019",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"journeydetail.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "id",
+							"value": "1|52632|0|74|10052019"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel Journey details by ref",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf331cce-1796-4270-aeb9-9b76436b279a",
+						"exec": [
+							"const collectionVariables = pm.collectionVariables.toObject();\r",
+							"for (let variableName in collectionVariables){\r",
+							"   // if (variableName.includes(('__export')){   // for particular variables\r",
+							"           pm.globals.set(variableName, collectionVariables[variableName]); //for all variables\r",
+							"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"redirected\");\r",
+							"    //pm.expect(pm.response.totalprice).to.eql(200000);\r",
+							"});\r",
+							"\r",
+							" \r",
+							"var expect = require('chai').expect\r",
+							"  , Originname = 'Kästadalsvägen'\r",
+							"  , Destinationname = 'Huddinge station';\r",
+							"  \r",
+							"    pm.test(\"Testing the different body response values\", function(){\r",
+							"\r",
+							"expect(Originname).to.be.a('string');\r",
+							"expect(Originname).to.equal('Kästadalsvägen');\r",
+							"expect(Originname).to.have.lengthOf(14);\r",
+							"expect(Destinationname).to.have.eql(\"Huddinge station\").with.lengthOf(16);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.sendRequest('api.sl.se/api2/LineData.Json?model=site&key=(pm.globals.get(res.json().stopsAndLines)&SiteId=7140', function (err, res) {\r",
+							"  if (err) { console.log(err); }\r",
+							"  pm.test('response should be okay to process', function () {\r",
+							"    pm.expect(err).to.equal(null);\r",
+							"    pm.expect(res).to.have.property('code', 200);\r",
+							"    pm.expect(res).to.have.property('status', 'OK');\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Testing different type variables\",function(){\r",
+							"pm.environment.get(\"key\");\r",
+							"pm.variables.get(\"key\");\r",
+							"pm.globals.get(\"stopsAndLines\", jsonData.stopsAndLines);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"var Trip = {\r",
+							"  SlTravelPlan: function() {\r",
+							"    return this.originname + \" & \" + this.destinationname;\r",
+							"  }\r",
+							"}\r",
+							"  var Journey1 = {\r",
+							"  originname:\"Kästadalsvägen\",\r",
+							"  destinationname: \"Huddinge station\"\r",
+							"}\r",
+							"var Journey2 = {\r",
+							"  originname:\"Stockholm\",\r",
+							"  destinationname: \"Huddinge\"\r",
+							"}\r",
+							"pm.test(\"Full Name verification code\",function(){\r",
+							"    pm.expect(Trip.SlTravelPlan.call(Journey1)).to.have.eql(\"Kästadalsvägen & Huddinge station\");\r",
+							"       pm.expect(Trip.SlTravelPlan.call(Journey2)).to.have.eql(\"Stockholm & Huddinge\");\r",
+							"    \r",
+							"});\r",
+							"console.log(\"SL Trip 1:\",Trip.SlTravelPlan.call(Journey1));\r",
+							"console.log(\"SL Trip 2:\",Trip.SlTravelPlan.call(Journey2));\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "JourneyDetailRef ref",
+							"value": "1|10127|2|74|17042020",
+							"type": "text"
+						},
+						{
+							"key": "passlist",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/journeydetail.Json?originExtId=9000&destExtId=9527&key={{key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"journeydetail.Json"
+					],
+					"query": [
+						{
+							"key": "originExtId",
+							"value": "9000"
+						},
+						{
+							"key": "destExtId",
+							"value": "9527"
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "requestId",
+							"value": "1586498762848",
+							"disabled": true
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "JourneyDetailRef ref ",
+							"value": " 1|3598|0|74|13062017\n",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "1|3598|0|74|13062017",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel Journey details By Polyline Type",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "JourneyDetailRef ref",
+							"value": "1|7942|0|74|17042020",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://api.reseplanerare.sl.se:8080/api/v3.2/trip/?accessId=sl&searchForArrival=0&originExtId=9001&destExtId=9189&lang=sv&poly=1",
+					"protocol": "http",
+					"host": [
+						"api",
+						"reseplanerare",
+						"sl",
+						"se"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v3.2",
+						"trip",
+						""
+					],
+					"query": [
+						{
+							"key": "accessId",
+							"value": "sl"
+						},
+						{
+							"key": "searchForArrival",
+							"value": "0"
+						},
+						{
+							"key": "originExtId",
+							"value": "9001"
+						},
+						{
+							"key": "destExtId",
+							"value": "9189"
+						},
+						{
+							"key": "lang",
+							"value": "sv"
+						},
+						{
+							"key": "poly",
+							"value": "1"
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "requestId",
+							"value": "1586498762848",
+							"disabled": true
+						},
+						{
+							"key": "JourneyDetailRef ref ",
+							"value": " 1 | 3598 | 0 | 74 | 13062017\n",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel Reconstruction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n                        \"Origin\": {\r\n                            \"name\": \"Flemingsberg, Hälsovägen\",\r\n                            \"type\": \"ST\",\r\n                            \"id\": \"A=1@O=Flemingsberg, Hälsovägen@X=17948618@Y=59219928@U=74@L=510105171@\",\r\n                            \"extId\": \"510105171\",\r\n                            \"lon\": 17.948618,\r\n                            \"lat\": 59.219928,\r\n                            \"time\": \"14:50:00\",\r\n                            \"date\": \"2020-04-09\",\r\n                            \"hasMainMast\": true,\r\n                            \"mainMastId\": \"A=1@O=Hälsovägen (Huddinge)@X=17947988@Y=59219236@U=74@L=300107005@\",\r\n                            \"mainMastExtId\": \"300107005\",\r\n                            \"additional\": false\r\n                        },\r\n                        \"Destination\": {\r\n                            \"name\": \"Flemingsberg\",\r\n                            \"type\": \"ST\",\r\n                            \"id\": \"A=1@O=Flemingsberg@X=17947152@Y=59219011@U=74@L=400105172@\",\r\n                            \"extId\": \"400105172\",\r\n                            \"lon\": 17.947152,\r\n                            \"lat\": 59.219011,\r\n                            \"time\": \"14:52:00\",\r\n                            \"date\": \"2020-04-09\",\r\n                            \"hasMainMast\": true,\r\n                            \"mainMastId\": \"A=1@O=Hälsovägen (Huddinge)@X=17947988@Y=59219236@U=74@L=300107005@\",\r\n                            \"mainMastExtId\": \"300107005\",\r\n                            \"additional\": false\r\n                        }\r\n }"
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/Reconstruction.Json?ctxRecon=T$A=1@O=Kästadalsvägen@L=400170691@a=128@$A=1@O=Huddinge station@L=400170637@a=128@$202004171654$202004171714$        $&key={{key}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"Reconstruction.Json"
+					],
+					"query": [
+						{
+							"key": "via",
+							"value": "7010;7012",
+							"disabled": true
+						},
+						{
+							"key": "stationName",
+							"value": "Erikslund",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "flemingsberg",
+							"disabled": true
+						},
+						{
+							"key": "extId",
+							"value": "400171317",
+							"disabled": true
+						},
+						{
+							"key": "planningPeriodBegin",
+							"value": "2020-04-10",
+							"disabled": true
+						},
+						{
+							"key": "ctxRecon",
+							"value": "T$A=1@O=Kästadalsvägen@L=400170691@a=128@$A=1@O=Huddinge station@L=400170637@a=128@$202004171654$202004171714$        $"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get SL Travel XSD",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.sl.se/api2/TravelplannerV3_1/xsd.Json?key={{key}}&originExtdId=7001&destEXtId=7006",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sl",
+						"se"
+					],
+					"path": [
+						"api2",
+						"TravelplannerV3_1",
+						"xsd.Json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "originExtdId",
+							"value": "7001"
+						},
+						{
+							"key": "destEXtId",
+							"value": "7006"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1bc423b6-a03b-4fbf-875a-856b638b92b9",
+				"type": "text/javascript",
+				"exec": [
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "71b9d39b-f82e-46d0-8a25-5bdf118637ce",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"response code is oneof 200  || 201 || 403 || 404\", function () {",
+					"   pm.expect(pm.response.code).to.be.oneOf([200,201,403,404],\"its fail due to internal or global error\");",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+					"});",
+					"",
+					"pm.test(\"Status code 200  name has string\", function () {",
+					"    ",
+					"     pm.expect(pm.response.status).to.be.oneOf([\"OK\",\"Created\"]);",
+					"   ",
+					"});",
+					"",
+					"pm.test(\"add the header value\",function(){",
+					"pm.request.headers.add({",
+					"    key: 'Content-Type',",
+					"    value: 'application/json'",
+					"});",
+					"});",
+					"pm.test(\"Content-Type is present if Status code is 200\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+					"});",
+					"    //pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql('text/xml; charset=utf-8');",
+					"    //pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+					" if (pm.response.code === [200||201]) {",
+					"\tvar jsonData = pm.response.json();",
+					"",
+					"\tpm.test(\"Content-Type is present\",function(){",
+					"\t   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include('application/json');",
+					"\t",
+					"\t});",
+					"}",
+					"",
+					"var val = 1",
+					"  , addOne = function () { val += 1; }",
+					"  , getVal = function () { return val; };",
+					"pm.test(\"Increasing variable process\",function(){",
+					"pm.expect(addOne).to.increase(getVal).by(1);",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
