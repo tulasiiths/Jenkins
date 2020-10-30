@@ -1,0 +1,801 @@
+{
+	"info": {
+		"_postman_id": "813acf4f-c561-4ea7-b7fc-ee9812516755",
+		"name": "Testing Collection CI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FuzzyMatch Copy",
+			"item": [
+				{
+					"name": "FuzzyMatch Compare items",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ccd104cc-5610-46e1-8f79-a98b8e010a86",
+								"exec": [
+									"var isDev = pm.environment.name === 'ZignSec.Azure.Dev';\r",
+									"var isTest = pm.environment.name === 'ZignSec.Azure.Test';\r",
+									"var isStaging = pm.environment.name === 'ZignSec.Azure.Staging'; \r",
+									"var isProd = pm.environment.name === 'ZignSec.Azure.Prod';\r",
+									"var isLocal = pm.environment.name === 'ZignSec.Localhost';\r",
+									"var isTest2 = pm.environment.name === 'Zignsec_Test';\r",
+									"var isW2 = pm.environment.name === 'W2';\r",
+									"\r",
+									"var validateIdentityBody = 'NOT SET';\r",
+									"\r",
+									"if(isLocal || isTest || isDev || isTest2) {\r",
+									"    \r",
+									"    validateIdentityBody =  {\r",
+									"\t\"Item1\":{\"fulllname\":\"Edgar Allan Poe\"},\r",
+									"\t\"Item2\":{\"fulllname\":\"Egar Alin Poe\"},\r",
+									"\t\"responseformat\":\"structured\"\r",
+									"    };\r",
+									"}\r",
+									"\r",
+									"if(isStaging || isProd ||isW2) {\r",
+									"    \r",
+									"     validateIdentityBody =  {\r",
+									"\t\"Item1\":{\"fullname\":\"Edgar Allan Poe\"},\r",
+									"\t\"Item2\":{\"fullname\":\"Egar Alin Poe\"},\r",
+									"\t\"responseformat\":\"structured\"\r",
+									"    };\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"validateIdentityBody\", JSON.stringify(validateIdentityBody));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "711a8eaa-603e-4b3f-9ddd-bdf28b4524f5",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"var order = JSON.parse(environment.validateIdentityBody);\r",
+									"\r",
+									"var expected;\r",
+									"\r",
+									"if(order.Item1.fulllname === \"Edgar Allan Poe\" && order.Item2.fulllname === \"Egar Alin Poe\"){\r",
+									"    \r",
+									"   expected = {\r",
+									"       person: {\r",
+									"           matchlevel : \"HIGH\",\r",
+									"           matchpercentage : 80,\r",
+									"           scoringexpression : \"80%/60% | fulllname;1;ld\"\r",
+									"       }\r",
+									"   } ;\r",
+									"} else if (order.Item1.fullname === \"Edgar Allan Poe\" && order.Item2.fullname === \"Egar Alin Poe\"){\r",
+									"    \r",
+									"    expected = {\r",
+									"       person: {\r",
+									"           matchlevel : \"LOW\",\r",
+									"           matchpercentage : 0,\r",
+									"           scoringexpression : \"80%/60% | fullname;1;ld\"\r",
+									"       }\r",
+									"   };\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Statuscode is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 800ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No errors\", function() {\r",
+									"    pm.expect(jsonData.errors).to.exist;\r",
+									"    pm.expect(jsonData.errors).to.be.eql([]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id exist and is not null\", function() {\r",
+									"    pm.expect(jsonData.id).to.exist;\r",
+									"    pm.expect(jsonData.id).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"MatchLevel exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.MatchLevel).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.MatchLevel).to.be.eql(expected.person.matchlevel);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"MatchPercentage exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.MatchPercentage).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.MatchPercentage).to.eql(expected.person.matchpercentage);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ScoringExpression exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.ScoringExpression).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.ScoringExpression).to.eql(expected.person.scoringexpression);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchScore\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchLevel\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchPercentage\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"SubScores\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"FieldName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CouldBeComputed\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchPercentage\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Weight\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ComparisonType\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MeasureOfLevenshteinDistance\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MeasureOfEquality\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ScoringExpression\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"validateIdentityBody\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{validateIdentityBody}}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}v2/ekyc/fuzzymatch",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"ekyc",
+								"fuzzymatch"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "FuzzyMatch Copy",
+			"item": [
+				{
+					"name": "FuzzyMatch Compare items",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "01a52d9f-541f-45f5-aca9-147783b0ebb7",
+								"exec": [
+									"var isDev = pm.environment.name === 'ZignSec.Azure.Dev';\r",
+									"var isTest = pm.environment.name === 'ZignSec.Azure.Test';\r",
+									"var isStaging = pm.environment.name === 'ZignSec.Azure.Staging'; \r",
+									"var isProd = pm.environment.name === 'ZignSec.Azure.Prod';\r",
+									"var isLocal = pm.environment.name === 'ZignSec.Localhost';\r",
+									"var isTest2 = pm.environment.name === 'Zignsec_Test';\r",
+									"var isW2 = pm.environment.name === 'W2';\r",
+									"\r",
+									"var validateIdentityBody = 'NOT SET';\r",
+									"\r",
+									"if(isLocal || isTest || isDev || isTest2) {\r",
+									"    \r",
+									"    validateIdentityBody =  {\r",
+									"\t\"Item1\":{\"fulllname\":\"Edgar Allan Poe\"},\r",
+									"\t\"Item2\":{\"fulllname\":\"Egar Alin Poe\"},\r",
+									"\t\"responseformat\":\"structured\"\r",
+									"    };\r",
+									"}\r",
+									"\r",
+									"if(isStaging || isProd ||isW2) {\r",
+									"    \r",
+									"     validateIdentityBody =  {\r",
+									"\t\"Item1\":{\"fullname\":\"Edgar Allan Poe\"},\r",
+									"\t\"Item2\":{\"fullname\":\"Egar Alin Poe\"},\r",
+									"\t\"responseformat\":\"structured\"\r",
+									"    };\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"validateIdentityBody\", JSON.stringify(validateIdentityBody));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ea55269-2138-4b6d-935d-c9bab039ba42",
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"var order = JSON.parse(environment.validateIdentityBody);\r",
+									"\r",
+									"var expected;\r",
+									"\r",
+									"if(order.Item1.fulllname === \"Edgar Allan Poe\" && order.Item2.fulllname === \"Egar Alin Poe\"){\r",
+									"    \r",
+									"   expected = {\r",
+									"       person: {\r",
+									"           matchlevel : \"HIGH\",\r",
+									"           matchpercentage : 80,\r",
+									"           scoringexpression : \"80%/60% | fulllname;1;ld\"\r",
+									"       }\r",
+									"   } ;\r",
+									"} else if (order.Item1.fullname === \"Edgar Allan Poe\" && order.Item2.fullname === \"Egar Alin Poe\"){\r",
+									"    \r",
+									"    expected = {\r",
+									"       person: {\r",
+									"           matchlevel : \"LOW\",\r",
+									"           matchpercentage : 0,\r",
+									"           scoringexpression : \"80%/60% | fullname;1;ld\"\r",
+									"       }\r",
+									"   };\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Statuscode is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 800ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"No errors\", function() {\r",
+									"    pm.expect(jsonData.errors).to.exist;\r",
+									"    pm.expect(jsonData.errors).to.be.eql([]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id exist and is not null\", function() {\r",
+									"    pm.expect(jsonData.id).to.exist;\r",
+									"    pm.expect(jsonData.id).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"MatchLevel exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.MatchLevel).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.MatchLevel).to.be.eql(expected.person.matchlevel);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"MatchPercentage exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.MatchPercentage).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.MatchPercentage).to.eql(expected.person.matchpercentage);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ScoringExpression exist and is correct\", function () {\r",
+									"    pm.expect(jsonData.MatchScore.ScoringExpression).to.exist;\r",
+									"    pm.expect(jsonData.MatchScore.ScoringExpression).to.eql(expected.person.scoringexpression);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"errors\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchScore\"); \r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchLevel\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchPercentage\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"SubScores\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"FieldName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"CouldBeComputed\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MatchPercentage\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"Weight\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ComparisonType\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MeasureOfLevenshteinDistance\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"MeasureOfEquality\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"ScoringExpression\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"validateIdentityBody\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{validateIdentityBody}}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}v2/ekyc/fuzzymatch",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"ekyc",
+								"fuzzymatch"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Setting API Copy",
+			"item": [
+				{
+					"name": "Post settingName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e005610-23af-4996-afd8-e34a02446082",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "67dae700-d17d-4f9d-9195-2e42a703c744",
+								"exec": [
+									"pm.environment.set(\"settingName\", \"Amrutha\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newValue\": \"VGVzdGVyIGZyb20gSMO2Z3Nrb2xhbg==\"\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}v2/myaccount/settings/{{settingName}}",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"myaccount",
+								"settings",
+								"{{settingName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d6b3622-8650-4ca4-a060-913d515a1cac",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"followOriginalHttpMethod": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}v2/myaccount/settings/",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"myaccount",
+								"settings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "87896b37-be46-411d-8fcf-b1715dbe34e3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45d88372-b950-4aeb-a7d9-12c11833efed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}v2/myaccount/settings/{{settingName}}",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"myaccount",
+								"settings",
+								"{{settingName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete settingName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ed8901a-1bfd-48c9-a395-690daa43bf02",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"settingName\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "08b35dd8-382d-4e77-bbaf-97be6485c445",
+								"exec": [
+									"//pm.environment.set(\"settingName\", \"Amrutha\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}v2/myaccount/settings/{{settingName}}",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"myaccount",
+								"settings",
+								"{{settingName}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d827d3e2-106b-491d-9c47-7aa6086804d5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "499ccd04-f913-46e8-9210-cfbb07000d31",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Ping endpoint Copy",
+			"item": [
+				{
+					"name": "Ping endpoint(check DateTime and IP)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c1438dc7-9d72-4e32-a7a2-27b889762719",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"DateTime\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"IP\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.DateTime).be.not.equal(undefined);\r",
+									"    pm.expect(jsonData.IP).be.not.equal(undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}v2/ping",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Test Webhook endpoint Copy",
+			"item": [
+				{
+					"name": "Webhook [url]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bd85ac2-35b9-4d64-90f5-33f7323327af",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body Matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"elapsed\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"statusCode\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"error\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"errorMessage\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body value Matches\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(200);\r",
+									"    pm.expect(jsonData.error).to.eql(null);\r",
+									"    pm.expect(jsonData.errorMessage).to.eql(null);\r",
+									"    pm.expect(jsonData.elapsed).be.not.equal(undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{auth}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"Url\": \"https://webhook.site/9664a03f-a34f-4d87-9754-68f9ebf4d410\"\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v2/webhook/test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v2",
+								"webhook",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
