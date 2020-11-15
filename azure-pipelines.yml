@@ -25,5 +25,5 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: '$(System.DefaultWororkingDirectory)'
+    workingDir: '$(System.DefaultWorkingDirectory)'
     customCommand: 'run test'
