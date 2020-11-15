@@ -25,5 +25,5 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'NodejsWebApp1\test\cypress\integration'
+    workingDir: '$(System.DefaultWororkingDirectory)'
     customCommand: 'run test'
