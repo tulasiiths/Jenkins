@@ -21,12 +21,14 @@ steps:
   inputs:
     versionSpec: '6.x'
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '6.x'
 - task: Npm@1
   inputs:
     command: 'install'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'NodejsWebApp1\test'
+    customCommand: 'run test'
 - task: CmdLine@2
   inputs:
     script: |
