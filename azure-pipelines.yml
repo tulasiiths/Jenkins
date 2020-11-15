@@ -26,6 +26,6 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-- task: CmdLine@2
-  inputs:
-    script: '$ newman run https://www.getpostman.com/collections/d87cbf1198a031ac2253'
+    - task: CmdLine@2
+      inputs:
+        script: 'newman run https://www.getpostman.com/collections/d87cbf1198a031ac2253'
