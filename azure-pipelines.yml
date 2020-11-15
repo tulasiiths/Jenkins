@@ -20,3 +20,12 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '6.x'
+- task: Npm@1
+  inputs:
+    command: 'install'
+- task: CmdLine@2
+  inputs:
+    script: '$ newman run https://www.getpostman.com/collections/d87cbf1198a031ac2253'
