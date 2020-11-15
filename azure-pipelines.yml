@@ -21,6 +21,7 @@ steps:
   inputs:
     versionSpec: '6.x'
 
+
 - task: Npm@1
   inputs:
     command: 'install'
@@ -29,7 +30,3 @@ steps:
     command: 'custom'
     workingDir: 'NodejsWebApp1\test'
     customCommand: 'run test'
-- task: CmdLine@2
-  inputs:
-    script: |
-      newman run https://www.getpostman.com/collections/d87cbf1198a031ac2253
