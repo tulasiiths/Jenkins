@@ -30,5 +30,4 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      npm install -g newman
       newman run https://www.getpostman.com/collections/d87cbf1198a031ac2253
